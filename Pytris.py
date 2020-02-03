@@ -172,7 +172,7 @@ def check_lost(positions):
 
 
 def get_shape():
-    pass
+    return random.choice(shapes)
 
 
 def draw_text_middle(text, size, color, surface):
@@ -180,7 +180,13 @@ def draw_text_middle(text, size, color, surface):
 
 
 def draw_grid(surface, row, col):
-    pass
+    surface.fill((0, 0, 0))
+
+    pygame.font.init()
+    font = pygame.font.SysFont('comicsans', 60)
+    label = font.render('Pytris', 1, (255, 255, 255))
+
+    surface.blit(label, (top_left_x + play_width/2 - (label.get_width()/2), 30))
 
 
 def clear_rows(grid, locked):
