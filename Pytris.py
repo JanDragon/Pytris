@@ -179,14 +179,13 @@ def draw_text_middle(text, size, color, surface):
     pass
 
 
-def draw_grid(surface, row, col):
-    surface.fill((0, 0, 0))
+def draw_grid(surface, grid,  row, col):
 
-    pygame.font.init()
-    font = pygame.font.SysFont('comicsans', 60)
-    label = font.render('Pytris', 1, (255, 255, 255))
+    for i in range(len(grid)):
+        for j in range(len[i]):
+            pygame.draw(surface, grid[i][j], (top_left_x + j*block_size, top_left_y + i*block_size, block_size, block_size), 0)
 
-    surface.blit(label, (top_left_x + play_width/2 - (label.get_width()/2), 30))
+    pygame.draw.rect(surface, (225, 0, 0), (top_left_y, top_left_y, play_width, play_height, 4))
 
 
 def clear_rows(grid, locked):
@@ -197,8 +196,16 @@ def draw_next_shape(shape, surface):
     pass
 
 
-def draw_window(surface):
-    pass
+def draw_window(surface, grid):
+    surface.fill((0, 0, 0))
+
+    pygame.font.init()
+    font = pygame.font.SysFont('comicsans', 60)
+    label = font.render('Pytris', 1, (255, 255, 255))
+
+    surface.blit(label, (top_left_x + play_width / 2 - (label.get_width() / 2), 30))
+    draw_grid(surface, grid)
+    pygame.display.update()
 
 
 def main():
