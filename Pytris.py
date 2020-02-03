@@ -172,6 +172,8 @@ def convert_shape_format(shape):
     for i, pos in enumerate(positions):
         positions[i] = (pos[0] - 2, pos[1] - 4)
 
+    return positions
+
 
 
 def valid_space(shape, grid):
@@ -232,8 +234,8 @@ def draw_window(surface, grid):
     surface.blit(label, (top_left_x + play_width / 2 - (label.get_width() / 2), 30))
 
 
-    for i in range(len(grid)):
-        for j in range(len[i]):
+    for i in range(len(grid)) :
+        for j in range(len(grid[i])):
             pygame.draw(surface, grid[i][j], (top_left_x + j*block_size, top_left_y + i*block_size, block_size, block_size), 0)
 
     pygame.draw.rect(surface, (225, 0, 0), (top_left_y, top_left_y, play_width, play_height, 4))
@@ -305,14 +307,24 @@ def main(win):
                 grid[y][x] = current_piece.color
 
         if change_piece:
+            for pos in shape_pos:
+                p = (pos[0], pos[1])
+                locked_positions[p] = current_piece.color
+            current_piece = next_piece
+            next_piece = get_shape()
+            change_piece = False
 
         draw_window(win, grid)
 
+        if check_lost(locked_positions):
+            run = False
 
-def main_menu(win):
+    pygame.display.quit()
+
+
+def main_menu(win) :
     main(win)
-    pass
 
 win = pygame.display.set_mode((s_width, s_height))
 pygame.display.set_caption('Pytris')
-main_menu()  # start game
+main_menu(win)  # start game
